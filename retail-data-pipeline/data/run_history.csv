@@ -1,0 +1,3 @@
+timestamp,customers_valid,customers_rejected,products_valid,products_rejected,orders_valid,orders_rejected,customers_loaded,products_loaded,orders_loaded
+2026-06-26T02:37:15,10,0,10,0,20,0,10,10,20
+2026-06-26T02:41:54,5,2,4,4,6,5,5,4,6

@@ -1,0 +1,5 @@
+product_id,product_name,category,price,rejection_reason
+502,,Electronics,15000,missing_value:product_name
+503,Bluetooth Speaker,Electronics,abc,invalid_number:price
+505,Dumbbell Set,Fitness,-2500,non_positive_number:price
+506,Recliner,Furniture,22000,duplicate_product_id

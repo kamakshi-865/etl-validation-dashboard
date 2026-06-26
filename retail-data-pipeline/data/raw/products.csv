@@ -1,0 +1,9 @@
+product_id,product_name,category,price
+501,Tablet,Electronics,21000
+502,,Electronics,15000
+503,Bluetooth Speaker,Electronics,abc
+504,Yoga Mat,Fitness,1200
+505,Dumbbell Set,Fitness,-2500
+506,Sofa,Furniture,18000
+506,Recliner,Furniture,22000
+507,Notebook Set,Stationery,250

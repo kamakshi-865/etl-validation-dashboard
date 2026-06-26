@@ -1,0 +1,5 @@
+customer_id,name,email,city,order_frequency,total_spend,average_order_value
+401,Tanya Bose,tanya.bose@gmail.com,Delhi,3,84000.0,28000.0
+405,Lakshmi Pillai,lakshmi.pillai@gmail.com,Chennai,1,18000.0,18000.0
+402,Suresh Kumar,suresh.kumar@gmail.com,Mumbai,1,1200.0,1200.0
+407,Devika Menon,devika.menon@gmail.com,Kochi,1,750.0,750.0

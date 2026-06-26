@@ -1,0 +1,6 @@
+order_id,customer_id,product_id,quantity,order_date,rejection_reason
+605,999,501,1,2024-07-03,invalid_foreign_key:customer_id
+606,401,888,1,2024-07-03,invalid_foreign_key:product_id
+607,402,504,0,2024-07-04,non_positive_integer:quantity
+608,405,506,,2024-07-04,missing_value:quantity
+609,407,507,2,15-07-2024,invalid_date:order_date

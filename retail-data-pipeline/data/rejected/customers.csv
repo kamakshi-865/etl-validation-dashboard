@@ -1,0 +1,3 @@
+customer_id,name,email,city,rejection_reason
+403,,missing.name@gmail.com,Pune,missing_value:name
+404,Farhan Ali,farhan.ali.gmail.com,Bangalore,invalid_email_format

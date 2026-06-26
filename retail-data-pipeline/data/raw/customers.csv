@@ -1,0 +1,8 @@
+customer_id,name,email,city
+401,Tanya Bose,tanya.bose@gmail.com,Delhi
+402,Suresh Kumar,suresh.kumar@gmail.com,Mumbai
+403,,missing.name@gmail.com,Pune
+404,Farhan Ali,farhan.ali.gmail.com,Bangalore
+405,Lakshmi Pillai,lakshmi.pillai@gmail.com,Chennai
+406,Lakshmi Pillai,lakshmi.pillai@gmail.com,Chennai
+407,Devika Menon,devika.menon@gmail.com,Kochi
