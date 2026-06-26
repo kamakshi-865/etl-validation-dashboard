@@ -1,6 +1,32 @@
-# etl-validation
+# Retail ETL Pipeline
 
-An automated retail ETL pipeline that ingests CSV data, validates and quarantines bad records, cleans and transforms valid data, loads it into SQL, and generates business insight reports.
+![Tests](https://github.com/<kamakshi-865>/retail-data-pipeline/actions/workflows/tests.yml/badge.svg)
+
+An automated retail ETL pipeline that ingests CSV data, validates and quarantines bad
+records, cleans and transforms valid data, loads it into SQL, and generates business
+insight reports — with a Streamlit dashboard on top for uploading new data and viewing
+results visually.
+
+
+
+## Architecture
+
+```
+ data/raw/*.csv
+        │
+        ▼
+ ┌─────────────┐     valid rows      ┌──────────────┐     ┌────────────┐     ┌────────────┐
+ │  Validation │ ──────────────────▶ │ Transformation│ ──▶ │    Load    │ ──▶ │  Insights  │
+ └─────────────┘                     └──────────────┘     │ (SQLite /  │     │ (reports)  │
+        │                                                  │ Postgres)  │     └────────────┘
+        ▼ rejected rows                                    └────────────┘
+ data/rejected/*.csv
+ (+ rejection_reason)
+```
+
+Each stage is a separate module (`src/validation`, `src/transform`, `src/load`,
+`src/insights`), orchestrated by `main.py`. Bad rows never reach the database — they're
+quarantined with a reason code instead of silently breaking the pipeline downstream.
 
 ## Features
 
@@ -8,31 +34,36 @@ An automated retail ETL pipeline that ingests CSV data, validates and quarantine
 - **Validation** — detects missing values, duplicate IDs, invalid types, bad emails/dates, and broken referential integrity
 - **Quarantine** — splits records into `data/valid/` and `data/rejected/` (with a `rejection_reason` column)
 - **Transformation** — type casting, text normalization, deduplication, and derived columns (`unit_price`, `total_order_value`)
-- **Load** — writes cleaned data to SQLite via SQLAlchemy (Postgres-ready)
+- **Load** — writes cleaned data to SQLite via SQLAlchemy (Postgres-ready, no code changes)
 - **Insights** — top-selling products, revenue trends, and customer purchase statistics
+- **Dashboard** — upload new data, run the pipeline, and view results as interactive charts
+- **CI** — GitHub Actions runs the full test suite on every push
 
 ## Project structure
 
 ```
 retail-data-pipeline/
 ├── main.py                     # Pipeline entry point
+├── dashboard.py                 # Streamlit dashboard
 ├── requirements.txt            # Runtime dependencies
 ├── requirements-dev.txt        # Dev/test dependencies
+├── .github/workflows/tests.yml # CI: runs pytest on every push
 ├── data/
 │   ├── raw/                    # Input CSVs
 │   ├── valid/                  # Validated rows
 │   ├── rejected/               # Quarantined rows + rejection_reason
 │   ├── cleaned/                # Transformed rows
 │   ├── insights/               # Generated report CSVs
+│   ├── run_history.csv         # Per-run data-quality log (created by dashboard)
 │   └── retail.db               # SQLite database (created on run)
 └── src/
     ├── config.py               # Paths, schemas, database URL
-    ├── ingestion/              # CSV readers
-    ├── validation/             # Validation checks and orchestration
-    ├── transform/              # Cleaning and transformation
-    ├── load/                   # SQLAlchemy models and loader
-    ├── insights/               # SQL-based reporting
-    └── utils/                  # Shared I/O helpers
+    ├── ingestion/               # CSV readers
+    ├── validation/              # Validation checks and orchestration
+    ├── transform/               # Cleaning and transformation
+    ├── load/                    # SQLAlchemy models and loader
+    ├── insights/                # SQL-based reporting
+    └── utils/                   # Shared I/O helpers
 ```
 
 ## Setup
@@ -95,6 +126,9 @@ Run with verbose output:
 pytest -v
 ```
 
+Tests run automatically on every push via GitHub Actions (`.github/workflows/tests.yml`)
+— see the **Actions** tab on GitHub for results.
+
 ## Validation rules
 
 | Check | Customers | Products | Orders |
@@ -132,6 +166,7 @@ The included CSVs contain deliberate bad rows for testing validation:
 - Structured logging module
 - Scheduling / automation
 - PySpark support for large-volume processing
+- Deployment of the dashboard (Streamlit Community Cloud)
 
 TODO hooks are left in the codebase where those integrations will attach.
 
@@ -140,4 +175,10 @@ TODO hooks are left in the codebase where those integrations will attach.
 - Python 3.10+
 - pandas
 - SQLAlchemy 2.x
+- Streamlit + Plotly (dashboard)
 - pytest (tests)
+- GitHub Actions (CI)
+
+## License
+
+MIT — feel free to use this as a reference for your own ETL projects.
