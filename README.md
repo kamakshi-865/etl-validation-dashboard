@@ -1,6 +1,6 @@
 # Retail ETL Pipeline
 
-![Tests](https://github.com/<kamakshi-865>/retail-data-pipeline/actions/workflows/tests.yml/badge.svg)
+![Tests](https://github.com/kamakshi-865/etl-validation-dashboard/actions/workflows/tests.yml/badge.svg)
 
 An automated retail ETL pipeline that ingests CSV data, validates and quarantines bad
 records, cleans and transforms valid data, loads it into SQL, and generates business
